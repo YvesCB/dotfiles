@@ -1,0 +1,2 @@
+# dotfiles
+Clone as .config
