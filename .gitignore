@@ -5,3 +5,23 @@ lazygit/state.yml
 
 .zcompdump-NADPF45XZL2-5.8.1
 .zcompdump-NADPF45XZL2-5.8.1.zwc
+VirtualBox
+azuredatastudio
+dconf
+enchant
+eog
+evolution/sources
+gedit
+gtk-3.0
+ibus/bus
+pop-system-updater
+pulse
+sqlops/MySQL
+touchegg
+.zcompdump-pop-os-5.8.1
+.zcompdump-pop-os-5.8.1.zwc
+QtProject.conf
+gnome-initial-setup-done
+mimeapps.list
+user-dirs.dirs
+user-dirs.locale
