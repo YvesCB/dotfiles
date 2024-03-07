@@ -25,3 +25,8 @@ gnome-initial-setup-done
 mimeapps.list
 user-dirs.dirs
 user-dirs.locale
+nvim/lazy-lock.json
+qtile/__pycache__
+xfce4/xfconf/xfce-perchannel-xml
+.gsd-keyboard.settings-ported
+Thunar
