@@ -12,7 +12,7 @@ return {
 			["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
 			["<leader>s"] = { name = "[S]earch and [S]pellcheck", _ = "which_key_ignore" },
 			["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
-			["<leader>h"] = { name = "[H]ints", _ = "which_key_ignore" },
+			["<leader>t"] = { name = "[T]oggle", _ = "which_key_ignore" },
 		})
 	end,
 }

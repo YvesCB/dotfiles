@@ -9,16 +9,11 @@ local os = vim.loop.os_uname().sysname
 local termcommand = ":term pwsh <cr>i"
 local termsplit = ":botright :15 split <cr>"
 
--- Spellcheck
-vim.keymap.set("n", "<leader>sy", ":setlocal spell<cr>", { silent = true, desc = "[S]pellcheck [Y]es" })
-vim.keymap.set("n", "<leader>sn", ":set nospell<cr>", { silent = true, desc = "[S]spellcheck [N]o" })
-
 if os == "Linux" then
 	termcommand = ":term zsh <cr> i clear <cr>"
 end
 
 -- Opening and closing terminals
-vim.keymap.set("n", "<leader>ot", termsplit .. termcommand, { silent = true, desc = "Open pwsh Terminal" })
 vim.keymap.set("t", "<c-q>", "<c-\\><c-n> :q <cr>", { silent = true, desc = "Close terminal" })
 
 -- Window resizig
@@ -48,3 +43,29 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 
 -- Open netrw
 vim.keymap.set("n", "<leader>ft", ":e . <cr>", { desc = "Open diagnostic [Q]uickfix list" })
+
+-- Toggles
+local toggle_spell = function()
+	if vim.o.spell then
+		vim.cmd("set nospell")
+	else
+		vim.cmd("setlocal spell")
+	end
+end
+
+local toggle_color_col = function()
+	if vim.o.cc == "" then
+		vim.o.cc = "80"
+	else
+		vim.o.cc = ""
+	end
+end
+
+vim.keymap.set("n", "<leader>ts", function()
+	toggle_spell()
+end, { silent = true, desc = "[T]oggle [S]pellcheck" })
+
+vim.keymap.set("n", "<leader>tt", termsplit .. termcommand, { silent = true, desc = "[T]oggle [T]erminal" })
+vim.keymap.set("n", "<leader>tc", function()
+	toggle_color_col()
+end, { silent = true, desc = "[T]oggle [C]olorcolumn at 80" })
