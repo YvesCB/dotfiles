@@ -30,3 +30,4 @@ qtile/__pycache__
 xfce4/xfconf/xfce-perchannel-xml
 .gsd-keyboard.settings-ported
 Thunar
+nvim/lazy-lock.json
