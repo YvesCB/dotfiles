@@ -69,3 +69,10 @@ vim.keymap.set("n", "<leader>tt", termsplit .. termcommand, { silent = true, des
 vim.keymap.set("n", "<leader>tc", function()
 	toggle_color_col()
 end, { silent = true, desc = "[T]oggle [C]olorcolumn at 80" })
+
+vim.keymap.set(
+	"n",
+	"<leader>tc",
+	":HexokinaseToggle <cr>",
+	{ silent = true, desc = "[T]oggle [C]olorpreviw (with hexokinase)" }
+)

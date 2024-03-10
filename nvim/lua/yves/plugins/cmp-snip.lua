@@ -27,13 +27,22 @@ return {
 		--    you can use this plugin to help you. It even has snippets
 		--    for various frameworks/libraries/etc. but you will have to
 		--    set up the ones that are useful for you.
-		-- 'rafamadriz/friendly-snippets',
+		-- "rafamadriz/friendly-snippets",
+
+		-- setting icons on completion text
+		"onsails/lspkind.nvim",
 	},
 	config = function()
 		-- See `:help cmp`
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
+		local lspkind = require("lspkind")
+
 		luasnip.config.setup({})
+
+		-- loading all the highlight groups
+		-- TODO: Find better colors
+		-- require("yves.core.cmp-hlgroups")
 
 		cmp.setup({
 			snippet = {
@@ -88,6 +97,31 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
+			},
+			window = {
+				completion = {
+					winhighlight = "Normal:Pmenu",
+					side_padding = 0,
+				},
+			},
+			-- Configure pictographs
+			formatting = {
+				-- fields = { "abbr", "kind" },
+				format = lspkind.cmp_format({
+					maxwidth = 50,
+
+					-- The function below will be called before any actual modifications from lspkind
+					-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+					--
+					-- This one sets the maximum width of a completion item to 20 and truncates the rest with ...
+					before = function(_, vim_item)
+						local m = vim_item.menu and vim_item.menu or ""
+						if #m > 20 then
+							vim_item.menu = string.sub(m, 1, 20) .. "..."
+						end
+						return vim_item
+					end,
+				}),
 			},
 		})
 	end,
