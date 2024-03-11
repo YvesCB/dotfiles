@@ -1,4 +1,5 @@
 local ns = vim.api.nvim_create_namespace("markdown_format")
+local current_marks = {}
 
 --- Helper function to print tables
 ---
@@ -57,16 +58,29 @@ end
 local function highlight_area_on_line(area_start, area_end, line_number)
 	-- TODO: get rid of * chars, only show word
 	-- TODO: find out how to do italics
-	local highlight = "SpecialChar"
+	local highlight = "Conceal"
 	local text_to_highlight =
-		string.sub(vim.api.nvim_buf_get_lines(0, line_number, line_number + 1, false)[1], area_start, area_end)
+		string.sub(vim.api.nvim_buf_get_lines(0, line_number, line_number + 1, false)[1], area_start + 1, area_end - 1)
 	local virtual_text = { { text_to_highlight, highlight } }
 
-	vim.api.nvim_buf_set_extmark(0, ns, line_number, area_start - 1, {
-		virt_text = virtual_text,
-		virt_text_pos = "overlay",
-		virt_text_hide = true,
+	local start_mark = vim.api.nvim_buf_set_extmark(0, ns, line_number, area_start - 1, {
+		end_line = line_number,
+		end_col = area_start,
+		hl_group = "Conceal",
 	})
+
+	local end_mark = vim.api.nvim_buf_set_extmark(0, ns, line_number, area_end - 1, {
+		end_line = line_number,
+		end_col = area_end,
+		hl_group = "Conceal",
+	})
+
+	current_marks = { start_mark, end_mark }
+	-- vim.api.nvim_buf_set_extmark(0, ns, line_number, area_start - 1, {
+	-- 	virt_text = virtual_text,
+	-- 	virt_text_pos = "overlay",
+	-- 	virt_text_hide = true,
+	-- })
 end
 
 local first_line = vim.api.nvim_buf_get_lines(0, 0, -1, false)[1]
