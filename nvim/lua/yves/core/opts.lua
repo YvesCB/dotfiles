@@ -74,6 +74,3 @@ vim.g.netrw_alto = 0 -- open splits on the bottom
 vim.g.netrw_liststyle = 3 -- tree view
 vim.g.netrw_localcopydircmd = "cp -r" -- enable recursive copy of dirs
 vim.g.netrw_preview = 1 -- preview window in vertical split
-
--- Hexokinase hl style
-vim.g.Hexokinase_highlighters = { "backgroundfull" }

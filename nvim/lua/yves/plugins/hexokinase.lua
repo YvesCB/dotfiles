@@ -1,6 +1,9 @@
 return {
 	"rrethy/vim-hexokinase",
 	build = "make hexokinase",
+	init = function()
+		vim.g.Hexokinase_highlighters = { "backgroundfull" }
+	end,
 	config = function()
 		vim.keymap.set(
 			"n",
