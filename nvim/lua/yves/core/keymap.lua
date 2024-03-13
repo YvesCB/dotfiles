@@ -42,7 +42,7 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower win
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Open netrw
-vim.keymap.set("n", "<leader>ft", ":e . <cr>", { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>ft", ":Lexplore <cr>", { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Toggles
 local toggle_spell = function()

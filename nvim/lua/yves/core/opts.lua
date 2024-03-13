@@ -62,3 +62,18 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Set conceal level for markdown stuff
 vim.o.conceallevel = 2
+
+-- NOTE: Defining globals
+--
+-- Netrw configs
+vim.g.netrw_banner = 0 -- disable annoying banner
+vim.g.netrw_winsize = 30 -- netrw in 30% window
+vim.g.netrw_browse_split = 0 -- control how files are opened
+vim.g.netrw_altv = 1 -- open splits to the right
+vim.g.netrw_alto = 0 -- open splits on the bottom
+vim.g.netrw_liststyle = 3 -- tree view
+vim.g.netrw_localcopydircmd = "cp -r" -- enable recursive copy of dirs
+vim.g.netrw_preview = 1 -- preview window in vertical split
+
+-- Hexokinase hl style
+vim.g.Hexokinase_highlighters = { "backgroundfull" }
