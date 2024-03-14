@@ -5,6 +5,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Remap for dealing with word wrap
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 local os = vim.loop.os_uname().sysname
 local termcommand = ":term pwsh <cr>i"
 local termsplit = ":botright :15 split <cr>"
