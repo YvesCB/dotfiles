@@ -5,6 +5,9 @@ export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$HOME/.cargo/bin:$HOME/.local/bin
 export ZSH="$HOME/.oh-my-zsh"
 export OBSIDIAN_PATH=/mnt/c/users/yves.bruckmayer/ObsidianNotes/
 
+export EDITOR=nvim
+export VISUAL=nvim
+
 alias v=nvim
 alias lz=lazygit
 
