@@ -18,6 +18,7 @@ in its entirety on v0.9 as well.
 ## Qtile
 To setup the WLAN widget, make sure that `libiw-dev` is installed on Ubuntu/Debian.
 Then make sure to install `iwlib` with `pip`.
+The Memory widget requires `psutil` from `pip`.
 
 ### Requirements
 Not much is needed but there is one plugin (hexokinase) that relies on a go compiler
