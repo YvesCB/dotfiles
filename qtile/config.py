@@ -58,11 +58,19 @@ keys = [
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    # These 4 for monadtall
+    Key([mod], "i", lazy.layout.grow()),
+    Key([mod], "m", lazy.layout.shrink()),
+    Key([mod], "n", lazy.layout.normalize()),
+    Key([mod], "o", lazy.layout.maximize()),
+
+    # These or stack
+    # Key([mod, "shift"], "space", lazy.layout.flip())
+    # Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
+    # Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+    # Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
+    # Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    # Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
@@ -88,6 +96,12 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "space", lazy.spawn("rofi -show run"), desc="Spawn a command using a prompt widget"),
     Key([mod], "x", lazy.spawn("i3lock -i /home/yves/.config/qtile/kate-hazen-pop-retro1080.png"), desc="Lock screen"),
+
+    # Function keys
+    
+    Key([], "XF86AudioLowerVolume", lazy.widget["volume"].decrease_vol(), desc="Decrease volume"),
+    Key([], "XF86AudioRaiseVolume", lazy.widget["volume"].increase_vol(), desc="Increase volume"),
+    Key([], "XF86AudioMute", lazy.widget["volume"].mute(), desc="Mute volume"),
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -136,7 +150,11 @@ layouts = [
         border_width=2, 
         margin=8
     ),
-    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2, margin=2),
+    # layout.Columns(
+    #     border_focus_stack=["#d75f5f", "#8f3d3d"], 
+    #     border_width=2, 
+    #     margin=8
+    # ),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
@@ -199,23 +217,25 @@ screens = [
                     charge_char="󰂄",
                     discharge_char="󱧥",
                     full_char = "󱊣",
-                    format="{char} {percent:2.0%} {hour:d}:{min:02d}"
+                    format="{char} {percent:2.0%} {hour:d}:{min:02d}",
+                    show_short_text=False
                 ),
                 widget.Sep(
                     padding=12,
                     linewidth=2
                 ),
                 widget.Volume(
-                    emoji=True,
+                    emoji=False,
                     emoji_list=["󰝟","󰕿","󰖀","󰕾"],
-                    fmt="{}",
+                    fmt="󰕾 {}",
+                    step=10,
                 ),
                 widget.Sep(
                     padding=12,
                     linewidth=2
                 ),
                 widget.Wlan(
-                    fmt=" {}",
+                    format="  {essid} {percent:2.0%}",
                     interface="wlp4s0"
                 ),
                 widget.Sep(
@@ -248,7 +268,8 @@ screens = [
                 # widget.QuickExit(),
             ],
             24,
-            border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+            background="#202020",
+            border_width=[0, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
