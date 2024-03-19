@@ -15,6 +15,10 @@ It also contains some features that only work on the nightly version of neovim
 (10.0.0) at the time of writing this. Though the config should work pretty much 
 in its entirety on v0.9 as well.
 
+## Qtile
+To setup the WLAN widget, make sure that `libiw-dev` is installed on Ubuntu/Debian.
+Then make sure to install `iwlib` with `pip`.
+
 ### Requirements
 Not much is needed but there is one plugin (hexokinase) that relies on a go compiler
 being installed.

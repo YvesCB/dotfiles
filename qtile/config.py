@@ -28,9 +28,17 @@ from libqtile import bar, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+import subprocess
+import os
+from libqtile import hook
 
 mod = "mod4"
 terminal = guess_terminal()
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser("~/.config/qtile/autostart.sh")
+    subprocess.run([home])
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -78,6 +86,7 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "space", lazy.spawn("rofi -show run"), desc="Spawn a command using a prompt widget"),
+    Key([mod, "control"], "l", lazy.spawn("i3lock -i /home/yves/.config/qtile/kate-hazen-pop-retro1080.png"), desc="Lock screen"),
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -121,13 +130,17 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2, margin=2),
+    layout.MonadTall(
+        border_focus="#8f3d3d",
+        border_width=2, 
+        margin=8
+    ),
+    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2, margin=2),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -173,9 +186,13 @@ screens = [
                     padding=12,
                     linewidth=2
                 ),
-                # widget.Wlan(
-                #     interface="wlp4s0"
-                # ),
+                widget.Wlan(
+                    interface="wlp4s0"
+                ),
+                widget.Sep(
+                    padding=12,
+                    linewidth=2
+                ),
                 widget.KeyboardLayout(),
                 widget.Sep(
                     padding=12,
@@ -193,10 +210,10 @@ screens = [
                 #     padding=12,
                 #     linewidth=2
                 # ),
-                widget.QuickExit(),
+                # widget.QuickExit(),
             ],
             24,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+            border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
         # You can uncomment this variable if you see that on X11 floating resize/moving is laggy

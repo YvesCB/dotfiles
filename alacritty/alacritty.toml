@@ -6,3 +6,5 @@ import = [
 normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
 size = 7.0
 
+[window]
+opacity = 0.9
