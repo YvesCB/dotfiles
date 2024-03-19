@@ -34,6 +34,7 @@ from libqtile import hook
 
 mod = "mod4"
 terminal = guess_terminal()
+config_font = "JetBrainsMono Nerd Font"
 
 @hook.subscribe.startup_once
 def autostart():
@@ -86,7 +87,7 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "space", lazy.spawn("rofi -show run"), desc="Spawn a command using a prompt widget"),
-    Key([mod, "control"], "l", lazy.spawn("i3lock -i /home/yves/.config/qtile/kate-hazen-pop-retro1080.png"), desc="Lock screen"),
+    Key([mod], "x", lazy.spawn("i3lock -i /home/yves/.config/qtile/kate-hazen-pop-retro1080.png"), desc="Lock screen"),
 ]
 
 # Add key bindings to switch VTs in Wayland.
@@ -150,7 +151,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="JetBrainsMono Nerd Font",
+    font=config_font,
     fontsize=14,
     padding=3,
 )
@@ -161,7 +162,12 @@ screens = [
         top=bar.Bar(
             [
                 widget.CurrentLayout(),
-                widget.GroupBox(),
+                widget.GroupBox(
+                    borderwidth=2,
+                    inactive="#606060",
+                    this_current_screen_border="#8f3d3d",
+                    font=config_font
+                ),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Chord(
@@ -171,9 +177,29 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                # widget.StatusNotifier(),
+                widget.DF(
+                    visible_on_warn=False,
+                    format=" {r:.0f}% Free: {uf}{m}",
+                ),
+                widget.Sep(
+                    padding=12,
+                    linewidth=2
+                ),
+                widget.Memory(
+                    measure_mem="G",
+                    fmt="󰍛 {}",
+                ),
+                widget.Sep(
+                    padding=12,
+                    linewidth=2
+                ),
                 widget.Battery(
-                    update_interval=10
+                    update_interval=10,
+                    not_charging_char="󱟢",
+                    charge_char="󰂄",
+                    discharge_char="󱧥",
+                    full_char = "󱊣",
+                    format="{char} {percent:2.0%} {hour:d}:{min:02d}"
                 ),
                 widget.Sep(
                     padding=12,
@@ -181,30 +207,39 @@ screens = [
                 ),
                 widget.Volume(
                     emoji=True,
+                    emoji_list=["󰝟","󰕿","󰖀","󰕾"],
+                    fmt="{}",
                 ),
                 widget.Sep(
                     padding=12,
                     linewidth=2
                 ),
                 widget.Wlan(
+                    fmt=" {}",
                     interface="wlp4s0"
                 ),
                 widget.Sep(
                     padding=12,
                     linewidth=2
                 ),
-                widget.KeyboardLayout(),
+                widget.KeyboardLayout(
+                    fmt="󰌌 {}",
+                    configured_keyboards=["us", "us intl"],
+                    mouse_callback={
+                        lambda: lazy.widget["keyboardlayout"].next_keyboard()
+                    }
+                ),
                 widget.Sep(
                     padding=12,
                     linewidth=2
                 ),
                 widget.Clock(
-                    format="%Y-%m-%d %a %I:%M %p",
+                    format=" %Y-%m-%d %a   %I:%M %p",
                  ),
-                widget.Sep(
-                    padding=12,
-                    linewidth=2
-                ),
+                # widget.Sep(
+                #     padding=12,
+                #     linewidth=2
+                # ),
                 # widget.Systray(),
                 # widget.Sep(
                 #     padding=12,
