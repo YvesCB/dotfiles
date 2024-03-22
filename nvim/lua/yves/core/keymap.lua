@@ -65,11 +65,7 @@ local toggle_color_col = function()
 	end
 end
 
-vim.keymap.set("n", "<leader>ts", function()
-	toggle_spell()
-end, { silent = true, desc = "[T]oggle [S]pellcheck" })
+vim.keymap.set("n", "<leader>ts", toggle_spell, { silent = true, desc = "[T]oggle [S]pellcheck" })
 
 vim.keymap.set("n", "<leader>tt", termsplit .. termcommand, { silent = true, desc = "[T]oggle [T]erminal" })
-vim.keymap.set("n", "<leader>tc", function()
-	toggle_color_col()
-end, { silent = true, desc = "[T]oggle [C]olorcolumn at 80" })
+vim.keymap.set("n", "<leader>tc", toggle_color_col, { silent = true, desc = "[T]oggle [C]olorcolumn at 80" })
