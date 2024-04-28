@@ -7,9 +7,9 @@ return {
 	config = function()
 		vim.keymap.set(
 			"n",
-			"<leader>th",
+			"<leader>tx",
 			":HexokinaseToggle <cr>",
-			{ silent = true, desc = "[T]oggle colorpreviw (with [H]exokinase)" }
+			{ silent = true, desc = "[T]oggle colorpreviw (with He[x]okinase)" }
 		)
 		-- NOTE: This isn't working becuase I need to find out how and when hexo reads the
 		--
