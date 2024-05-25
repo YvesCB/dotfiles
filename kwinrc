@@ -7,7 +7,7 @@ Rows=1
 padding=4
 
 [Tiling][564c6cd8-cdde-5e8c-b4d2-82891f236697]
-tiles={"layoutDirection":"horizontal","tiles":[{"width":0.45581395348837206},{"width":0.5441860465116279}]}
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.5063953488372104},{"width":0.4936046511627892}]}
 
 [Xwayland]
 Scale=1
