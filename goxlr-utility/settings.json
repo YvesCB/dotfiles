@@ -14,7 +14,7 @@
   "activate": null,
   "devices": {
     "S190900995DI7": {
-      "profile": "Normal",
+      "profile": "Stream",
       "mic_profile": "Procaster",
       "hold_delay": 500,
       "sampler_pre_buffer": null,
