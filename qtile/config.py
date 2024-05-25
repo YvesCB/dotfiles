@@ -96,7 +96,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "space", lazy.spawn("rofi -show run"), desc="Spawn a command using a prompt widget"),
     Key([mod, "control"], "l", lazy.spawn("i3lock -i /home/yves/.config/qtile/kate-hazen-pop-retro1080.png"), desc="Lock screen"),
-    Key([mod], "x", lazy.spawn("$HOME/.config/qtile/wm_power_menu"), desc="Show power menu"),
+    Key([mod], "x", lazy.spawn("wm_power_menu"), desc="Show power menu"),
 
     # Function keys
     
