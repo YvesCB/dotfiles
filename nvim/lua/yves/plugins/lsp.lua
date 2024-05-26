@@ -83,7 +83,7 @@ return {
 
 				if vim.lsp.inlay_hint then
 					map("<leader>th", function()
-						vim.lsp.inlay_hint.enable(nil, not vim.lsp.inlay_hint.is_enabled(nil))
+						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 					end, "[T]oggle [H]ints")
 				end
 			end,
