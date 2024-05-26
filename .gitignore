@@ -43,3 +43,16 @@ xsettingsd
 KDE
 kde.org
 kde.org
+drkonqirc
+gtkrc
+gtkrc-2.0
+kcminputrc
+kfontinstuirc
+kglobalshortcutsrc
+kiorc
+krecentconnections
+kwinoutputconfig.json
+kwinrc
+plasma-org.kde.plasma.desktop-appletsrc
+systemmonitorrc
+trashrc
