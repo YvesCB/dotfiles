@@ -11,9 +11,7 @@ From [ohmyz.sh](https://ohmyz.sh/#install). Additionally install zsh-autosuggest
 
 ## Neovim
 This contains my complete Neovim config. It is partially based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).
-It also contains some features that only work on the nightly version of neovim 
-(10.0.0) at the time of writing this. Though the config should work pretty much 
-in its entirety on v0.9 as well.
+It is meant to be used with nvim v0.10 or above.
 
 ### Requirements
 Not much is needed but there is one plugin (hexokinase) that relies on a go compiler

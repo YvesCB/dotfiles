@@ -56,3 +56,13 @@ kwinrc
 plasma-org.kde.plasma.desktop-appletsrc
 systemmonitorrc
 trashrc
+GIMP/2.10
+device_automounter_kcmrc
+discoverrc
+kactivitymanagerd-statsrc
+kconf_updaterc
+kded5rc
+konsolerc
+kscreenlockerrc
+ksmserverrc
+kxkbrc

@@ -16,6 +16,11 @@ export VISUAL=nvim
 alias v=nvim
 alias lz=lazygit
 
+# ibus stuff
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
