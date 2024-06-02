@@ -1,0 +1,7 @@
+{
+    "bitrate": 6000,
+    "gpu": 0,
+    "keyint_sec": 1,
+    "lookahead": true,
+    "preset": "hq"
+}

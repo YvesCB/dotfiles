@@ -1,0 +1,23 @@
+[General]
+LastUsedVersion=210800
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled
+
+[Recent Files]
+File1[$e]=smb://Yves@10.1.2.100/Vault/Homepage/Logo/logo_vec.svg
+File2[$e]=smb://Yves@10.1.2.100/Vault/Homepage/Logo/logo.svg
+File3[$e]=smb://Yves@10.1.2.100/Vault/Homepage/Logo/logo.svg.2023_05_04_16_48_21.0.svg
+File4[$e]=smb://Yves@10.1.2.100/Vault/Homepage/Logo/logo_raster.png
+File5[$e]=$HOME/Pictures/Screenshots/2024-05-25_19-11.png
+File6[$e]=$HOME/Downloads/img-fallstudie/yewlogo.svg
+Name1[$e]=logo_vec.svg
+Name2[$e]=logo.svg
+Name3[$e]=logo.svg.2023_05_04_16_48_21.0.svg
+Name4[$e]=logo_raster.png
+Name5[$e]=2024-05-25_19-11.png
+Name6[$e]=yewlogo.svg
+
+[SideBar]
+InformationSplitterSizes=211,244
