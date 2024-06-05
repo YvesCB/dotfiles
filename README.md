@@ -1,13 +1,11 @@
 # My dotfiles
 ## Setup
-1. Clone as .config
-2. Install zsh and set as user shell `chsh -s $(which zsh)` (if this doesn't work 
-because zsh links to `/usr/sbin/` then you can just provide the full path in 
-`/usr/bin/zsh` to `chsh`)
+1. Clone into home directory
+2. Install zsh.
 3. Install oh-my-zsh. `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 From [ohmyz.sh](https://ohmyz.sh/#install). Additionally install zsh-autosuggestions plugin.
-4. Add `ZDOTDIR=~/.config` to `~/.zshenv` so that zsh will source it properly
-5. Install tmux.
+4. Install tmux.
+5. Install stow and enter the dotfiles directory. Execute `stow .` or `stow . --adopt`.
 
 ## Neovim
 This contains my complete Neovim config. It is partially based on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim).
@@ -22,5 +20,5 @@ To setup the WLAN widget, make sure that `libiw-dev` is installed on Ubuntu/Debi
 Then make sure to install `iwlib` with `pip`.
 The Memory widget requires `psutil` from `pip`.
 
-### Requirments (and addons)
+### Addons
 I'm currently using a very simple [power menu by Github user Pyntux](https://github.com/Pyntux/wm_power_menu) which is then just bound to a key. The script is in the qtile folder of this config. Make sure it's executable. Make sure that `$HOME/.config/qtile/` is in the path.
