@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$HOME/.cargo/bin:$HOME/.local/bin/:$HOME/.config/qtile/:/usr/bin/gradle/gradle-8.6/bin/:/opt/mssql-tools18/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$HOME/.cargo/bin:$HOME/.local/bin/:$HOME/.config/qtile/:/usr/bin/gradle/gradle-8.6/bin/:$PATH
 
 # Loading nvm
 export NVM_DIR="$HOME/.nvm"
