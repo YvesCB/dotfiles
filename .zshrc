@@ -13,6 +13,10 @@ export OBSIDIAN_PATH=/mnt/c/users/yves.bruckmayer/ObsidianNotes/
 export EDITOR=nvim
 export VISUAL=nvim
 
+# locale stuff
+LC_CTYPE=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+
 alias v=nvim
 alias lz=lazygit
 
