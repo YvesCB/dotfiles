@@ -28,12 +28,18 @@ export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
-alias fzfh="history | fzf"
-
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
+
+alias fp="fzf --preview='bat --color=always --style=numbers {}'"
+alias tldr="tldr -t ocean"
+
+cfd() {
+  local dir
+  dir=$(fd -d 5 | fzf) && cd "$dir"
+}
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -105,6 +111,7 @@ ZSH_THEME="robbyrussell"
 plugins=(
   git
   zsh-autosuggestions
+  zsh-fzf-history-search
 )
 
 source $ZSH/oh-my-zsh.sh
