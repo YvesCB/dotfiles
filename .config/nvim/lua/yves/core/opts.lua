@@ -65,7 +65,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Set conceal level for markdown stuff
 vim.o.conceallevel = 2
-vim.o.concealcursor = "nc"
+vim.o.concealcursor = "c"
 
 -- NOTE: Spellcheck
 vim.o.spelllang = "en,de_ch"

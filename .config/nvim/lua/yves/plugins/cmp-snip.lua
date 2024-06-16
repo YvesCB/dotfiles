@@ -211,6 +211,8 @@ return {
 				{ name = "buffer" },
 			}, {
 				{ name = "spell" },
+			}, {
+				{ name = "path" },
 			}),
 		})
 	end,

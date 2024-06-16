@@ -8,14 +8,9 @@ export NVM_DIR="$HOME/.nvm"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export OBSIDIAN_PATH=/mnt/c/users/yves.bruckmayer/ObsidianNotes/
 
 export EDITOR=nvim
 export VISUAL=nvim
-
-# locale stuff
-LC_CTYPE=en_US.UTF-8
-LC_ALL=en_US.UTF-8
 
 alias v=nvim
 alias lz=lazygit
@@ -38,7 +33,13 @@ alias tldr="tldr -t ocean"
 
 cfd() {
   local dir
-  dir=$(fd -d 5 | fzf) && cd "$dir"
+  dir=$(fd -d 5 -H | fzf) && cd "$dir"
+}
+
+fkill() {
+  local process
+  process=$(ps aux | fzf | awk '{print $2}')
+  kill $process
 }
 
 # Set name of the theme to load --- if set to "random", it will
@@ -119,9 +120,6 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
