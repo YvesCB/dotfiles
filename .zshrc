@@ -55,3 +55,6 @@ function yy() {
 	fi
 	rm -f -- "$tmp"
 }
+
+# Setting up zoxide
+eval "$(zoxide init zsh)"
