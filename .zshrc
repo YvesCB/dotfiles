@@ -58,3 +58,5 @@ function yy() {
 
 # Setting up zoxide
 eval "$(zoxide init zsh)"
+
+nerdfetch
