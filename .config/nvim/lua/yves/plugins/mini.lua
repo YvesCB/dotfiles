@@ -33,16 +33,16 @@ return {
 
 		require("mini.pairs").setup()
 
-		local MiniFiles = require("mini.files")
-		MiniFiles.setup()
-		local minifiles_toggle = function()
-			if not MiniFiles.close() then
-				MiniFiles.open()
-			end
-		end
-		vim.keymap.set("n", "-", function()
-			minifiles_toggle()
-		end, { silent = true, desc = "Open up mini.files" })
+		-- local MiniFiles = require("mini.files")
+		-- MiniFiles.setup()
+		-- local minifiles_toggle = function()
+		-- 	if not MiniFiles.close() then
+		-- 		MiniFiles.open()
+		-- 	end
+		-- end
+		-- vim.keymap.set("n", "-", function()
+		-- 	minifiles_toggle()
+		-- end, { silent = true, desc = "Open up mini.files" })
 
 		-- ... and there is more!
 		--  Check out: https://github.com/echasnovski/mini.nvim

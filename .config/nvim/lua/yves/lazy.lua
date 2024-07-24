@@ -20,7 +20,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Setting up plugins
 require("lazy").setup({ { import = "yves.plugins" } }, {
 	install = {
-		colorscheme = { "kanagawa" },
+		colorscheme = { "catppuccin" },
 	},
 	checker = {
 		enabled = true,
