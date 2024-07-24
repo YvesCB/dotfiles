@@ -2,9 +2,6 @@
 -- See `:help vim.o`
 
 -- CUSTOM SETTINGS:
--- Colorscheme
--- vim.cmd.colorscheme("catppuccin")
-
 -- tabs & indentation
 vim.o.tabstop = 2 -- 2 spaces for tabs (prettier default)
 vim.o.shiftwidth = 2 -- 2 spaces for indent width
