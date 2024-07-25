@@ -91,3 +91,4 @@ dolphinrc
 qt5ct
 qt6ct
 .config/gtk-4.0
+.config/nvim/lazy-lock.json
