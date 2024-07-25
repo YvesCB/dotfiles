@@ -8,6 +8,9 @@ vim.o.shiftwidth = 2 -- 2 spaces for indent width
 vim.o.expandtab = true -- expand tab to spaces
 vim.o.autoindent = true -- copy indent from current line when starting new one
 
+-- Live preview for what happens to buffer
+vim.opt.inccommand = "split"
+
 -- scrolloff, keep at least 10 lines visible bellow the cursor
 vim.o.scrolloff = 10
 

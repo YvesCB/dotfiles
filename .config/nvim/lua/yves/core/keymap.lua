@@ -21,10 +21,10 @@ end
 vim.keymap.set("t", "<c-q>", "<c-\\><c-n> :q <cr>", { silent = true, desc = "Close terminal" })
 
 -- Window resizig
-vim.keymap.set("n", "<a-h>", ":vert :res +5<cr>", { silent = true, desc = "Decrease width" })
-vim.keymap.set("n", "<a-k>", ":res -5<cr>", { silent = true, desc = "Increase height" })
-vim.keymap.set("n", "<a-j>", ":res +5<cr>", { silent = true, desc = "Decrease height" })
-vim.keymap.set("n", "<a-l>", ":vert :res -5<cr>", { silent = true, desc = "Increase width" })
+vim.keymap.set("n", "<M-,>", "<c-w>5<", { silent = true, desc = "Decrease split width" })
+vim.keymap.set("n", "<M-.>", "<c-w>5>", { silent = true, desc = "Increase split width" })
+vim.keymap.set("n", "<M-u>", "<c-w>+", { silent = true, desc = "Increase split height" })
+vim.keymap.set("n", "<M-d>", "<c-w>-", { silent = true, desc = "Decrease split height" })
 
 -- Navigating half screens
 vim.keymap.set("n", "<c-d>", "<c-d>zz", { silent = true })
