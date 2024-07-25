@@ -90,3 +90,4 @@ gwenviewrc
 dolphinrc
 qt5ct
 qt6ct
+.config/nvim/lazy-lock.json
