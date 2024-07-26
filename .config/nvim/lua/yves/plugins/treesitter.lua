@@ -27,6 +27,11 @@ return {
 					"sql",
 					"vim",
 					"vimdoc",
+					"html",
+					"css",
+					"typescript",
+					"javascript",
+					"svelte",
 				},
 				-- Autoinstall languages that are not installed
 				auto_install = true,
