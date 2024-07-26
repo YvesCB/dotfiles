@@ -1,6 +1,6 @@
 return {
 	"hrsh7th/nvim-cmp",
-	event = "InsertEnter",
+	event = "BufEnter",
 	dependencies = {
 		-- Snippet Engine & its associated nvim-cmp source
 		{
@@ -33,6 +33,7 @@ return {
 		--  into multiple repos for maintenance purposes.
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-cmdline",
 
 		-- setting icons on completion text
 		"onsails/lspkind.nvim",
@@ -44,85 +45,6 @@ return {
 		local lspkind = require("lspkind")
 
 		luasnip.config.setup({})
-
-		-- loading all the highlight groups
-		-- TODO: Find better colors
-		-- require("yves.core.cmp-hlgroups")
-
-		local completion = { completeopt = "menu,menuone,noinsert" }
-
-		-- For an understanding of why these mappings were
-		-- chosen, you will need to read `:help ins-completion`
-		--
-		-- No, but seriously. Please read `:help ins-completion`, it is really good!
-		local mapping = cmp.mapping.preset.insert({
-			-- Select the [n]ext item
-			["<C-n>"] = cmp.mapping.select_next_item(),
-			-- Select the [p]revious item
-			["<C-p>"] = cmp.mapping.select_prev_item(),
-			["<C-f>"] = cmp.mapping.scroll_docs(-4),
-			["<C-b>"] = cmp.mapping.scroll_docs(4),
-
-			-- Accept ([y]es) the completion.
-			--  This will auto-import if your LSP supports it.
-			--  This will expand snippets if the LSP sent a snippet.
-			["<C-y>"] = cmp.mapping.confirm({ select = true }),
-
-			-- Manually trigger a completion from nvim-cmp.
-			--  Generally you don't need this, because nvim-cmp will display
-			--  completions whenever it has completion options available.
-			["<C-Space>"] = cmp.mapping.complete({}),
-
-			-- Think of <c-l> as moving to the right of your snippet expansion.
-			--  So if you have a snippet that's like:
-			--  function $name($args)
-			--    $body
-			--  end
-			--
-			-- <c-l> will move you to the right of each of the expansion locations.
-			-- <c-h> is similar, except moving you backwards.
-			["<C-l>"] = cmp.mapping(function()
-				if luasnip.expand_or_locally_jumpable() then
-					luasnip.expand_or_jump()
-				end
-			end, { "i", "s" }),
-			["<C-h>"] = cmp.mapping(function()
-				if luasnip.locally_jumpable(-1) then
-					luasnip.jump(-1)
-				end
-			end, { "i", "s" }),
-		})
-		local sources = {
-			{ name = "nvim_lsp" },
-			{ name = "luasnip" },
-			{ name = "path" },
-			{ name = "vim-dadbod-completion" },
-		}
-		local window = {
-			completion = {
-				winhighlight = "Normal:Pmenu",
-				side_padding = 0,
-			},
-		}
-		-- Configure pictographs
-		local formatting = {
-			-- fields = { "abbr", "kind" },
-			format = lspkind.cmp_format({
-				maxwidth = 50,
-
-				-- The function below will be called before any actual modifications from lspkind
-				-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-				--
-				-- This one sets the maximum width of a completion item to 20 and truncates the rest with ...
-				before = function(_, vim_item)
-					local m = vim_item.menu and vim_item.menu or ""
-					if #m > 20 then
-						vim_item.menu = string.sub(m, 1, 20) .. "..."
-					end
-					return vim_item
-				end,
-			}),
-		}
 
 		cmp.setup({
 			snippet = {
@@ -141,18 +63,15 @@ return {
 				["<C-n>"] = cmp.mapping.select_next_item(),
 				-- Select the [p]revious item
 				["<C-p>"] = cmp.mapping.select_prev_item(),
-				["<C-f>"] = cmp.mapping.scroll_docs(-4),
-				["<C-b>"] = cmp.mapping.scroll_docs(4),
+				["<C-v>"] = cmp.mapping.scroll_docs(-4),
+				["<C-f>"] = cmp.mapping.scroll_docs(4),
 
 				-- Accept ([y]es) the completion.
 				--  This will auto-import if your LSP supports it.
 				--  This will expand snippets if the LSP sent a snippet.
 				["<C-y>"] = cmp.mapping.confirm({ select = true }),
 
-				-- Manually trigger a completion from nvim-cmp.
-				--  Generally you don't need this, because nvim-cmp will display
-				--  completions whenever it has completion options available.
-				["<C-Space>"] = cmp.mapping.complete({}),
+				["<C-q>"] = cmp.mapping.abort(),
 
 				-- Think of <c-l> as moving to the right of your snippet expansion.
 				--  So if you have a snippet that's like:
@@ -177,11 +96,10 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
-				{ name = "vim-dadbod-completion" },
 			},
 			window = {
 				completion = {
-					winhighlight = "Normal:Pmenu",
+					-- winhighlight = "Normal:Pmenu",
 					side_padding = 0,
 				},
 			},
@@ -214,6 +132,25 @@ return {
 			}, {
 				{ name = "path" },
 			}),
+		})
+
+		-- `/` cmdline setup.
+		cmp.setup.cmdline("/", {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = {
+				{ name = "buffer" },
+			},
+		})
+
+		-- `:` cmdline setup.
+		cmp.setup.cmdline(":", {
+			mapping = cmp.mapping.preset.cmdline(),
+			sources = cmp.config.sources({
+				{ name = "path" },
+			}, {
+				{ name = "cmdline" },
+			}),
+			matching = { disallow_symbol_nonprefix_matching = false },
 		})
 	end,
 }
