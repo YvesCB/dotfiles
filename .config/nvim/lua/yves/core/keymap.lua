@@ -69,3 +69,9 @@ vim.keymap.set("n", "<leader>ts", toggle_spell, { silent = true, desc = "[T]oggl
 
 vim.keymap.set("n", "<leader>tt", termsplit .. termcommand, { silent = true, desc = "[T]oggle [T]erminal" })
 vim.keymap.set("n", "<leader>tc", toggle_color_col, { silent = true, desc = "[T]oggle [C]olorcolumn at 80" })
+
+-- Quickfixstuff
+vim.keymap.set("n", "<leader>q", ":copen <cr>", { silent = true, desc = "Open [Q]uickfix list" })
+vim.keymap.set("n", "<leader>qq", ":cclose <cr>", { silent = true, desc = "[C]lose [Q]uickfix list" })
+vim.keymap.set("n", "<leader>qn", ":cn <cr>", { silent = true, desc = "[N]ext [Q]uickfix item" })
+vim.keymap.set("n", "<leader>qp", ":cp <cr>", { silent = true, desc = "[P]revious [Q]uickfix item" })
