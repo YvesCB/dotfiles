@@ -57,6 +57,6 @@ function yy() {
 }
 
 # Setting up zoxide
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 nerdfetch
