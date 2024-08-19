@@ -33,7 +33,7 @@ import os
 from libqtile import hook
 
 mod = "mod4"
-terminal = guess_terminal()
+terminal = "kitty"
 config_font = "JetBrainsMono Nerd Font"
 
 @hook.subscribe.startup_once
@@ -63,6 +63,10 @@ keys = [
     Key([mod], "m", lazy.layout.shrink()),
     Key([mod], "n", lazy.layout.normalize()),
     Key([mod], "o", lazy.layout.maximize()),
+
+    # Switch Screen
+    Key([mod], "period", lazy.next_screen(), desc="Move focus to next monitor"),
+    Key([mod], "comma", lazy.prev_screen(), desc="Move focus to previous monitor"),
 
     # These or stack
     # Key([mod, "shift"], "space", lazy.layout.flip())
@@ -104,6 +108,28 @@ keys = [
     Key([], "XF86AudioRaiseVolume", lazy.widget["volume"].increase_vol(), desc="Increase volume"),
     Key([], "XF86AudioMute", lazy.widget["volume"].mute(), desc="Mute volume"),
 ]
+
+def window_to_previous_screen(qtile, switch_group=False, switch_screen=False):
+    i = qtile.screens.index(qtile.current_screen)
+    if i != 0:
+        group = qtile.screens[i - 1].group.name
+        qtile.current_window.togroup(group, switch_group=switch_group)
+        if switch_screen == True:
+            qtile.cmd_to_screen(i - 1)
+
+def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
+    i = qtile.screens.index(qtile.current_screen)
+    if i + 1 != len(qtile.screens):
+        group = qtile.screens[i + 1].group.name
+        qtile.current_window.togroup(group, switch_group=switch_group)
+        if switch_screen == True:
+            qtile.cmd_to_screen(i + 1)
+
+keys.extend([
+    # MOVE WINDOW TO NEXT SCREEN
+    Key([mod,"shift"], "Right", lazy.function(window_to_next_screen, switch_screen=True)),
+    Key([mod,"shift"], "Left", lazy.function(window_to_previous_screen, switch_screen=True)),
+])
 
 # Add key bindings to switch VTs in Wayland.
 # We can't check qtile.core.name in default config as it is loaded before qtile is started
@@ -177,6 +203,107 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 screens = [
+    Screen(
+        top=bar.Bar(
+            [
+                widget.CurrentLayout(),
+                widget.GroupBox(
+                    borderwidth=2,
+                    inactive="#606060",
+                    this_current_screen_border="#8f3d3d",
+                    font=config_font
+                ),
+                widget.Prompt(),
+                widget.WindowName(),
+                widget.Chord(
+                    chords_colors={
+                        "launch": ("#ff0000", "#ffffff"),
+                    },
+                    name_transform=lambda name: name.upper(),
+                ),
+                # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
+                widget.DF(
+                    visible_on_warn=False,
+                    format=" {r:.0f}% Free: {uf}{m}",
+                ),
+                widget.Sep(
+                    padding=12,
+                    linewidth=2
+                ),
+                widget.Memory(
+                    measure_mem="G",
+                    fmt="󰍛 {}",
+                ),
+                widget.Sep(
+                    padding=12,
+                    linewidth=2
+                ),
+                widget.Battery(
+                    update_interval=10,
+                    not_charging_char="󱟢",
+                    charge_char="󰂄",
+                    discharge_char="󱧥",
+                    full_char = "󱊣",
+                    format="{char} {percent:2.0%} {hour:d}:{min:02d}",
+                    show_short_text=False
+                ),
+                widget.Sep(
+                    padding=12,
+                    linewidth=2
+                ),
+                widget.Volume(
+                    emoji=False,
+                    emoji_list=["󰝟","󰕿","󰖀","󰕾"],
+                    fmt="󰕾 {}",
+                    step=10,
+                ),
+                widget.Sep(
+                    padding=12,
+                    linewidth=2
+                ),
+                widget.Wlan(
+                    format="  {essid} {percent:2.0%}",
+                    interface="wlp4s0"
+                ),
+                widget.Sep(
+                    padding=12,
+                    linewidth=2
+                ),
+                widget.KeyboardLayout(
+                    fmt="󰌌 {}",
+                    configured_keyboards=["us", "us intl"],
+                    mouse_callback={
+                        lambda: lazy.widget["keyboardlayout"].next_keyboard()
+                    }
+                ),
+                widget.Sep(
+                    padding=12,
+                    linewidth=2
+                ),
+                widget.Clock(
+                    format=" %Y-%m-%d %a   %I:%M %p",
+                 ),
+                # widget.Sep(
+                #     padding=12,
+                #     linewidth=2
+                # ),
+                # widget.Systray(),
+                # widget.Sep(
+                #     padding=12,
+                #     linewidth=2
+                # ),
+                # widget.QuickExit(),
+            ],
+            24,
+            background="#202020",
+            border_width=[0, 0, 2, 0],  # Draw top and bottom borders
+            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+        ),
+        # You can uncomment this variable if you see that on X11 floating resize/moving is laggy
+        # By default we handle these events delayed to already improve performance, however your system might still be struggling
+        # This variable is set to None (no cap) by default, but you can set it to 60 to indicate that you limit it to 60 events per second
+        x11_drag_polling_rate = 60,
+    ),
     Screen(
         top=bar.Bar(
             [
