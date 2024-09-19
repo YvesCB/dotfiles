@@ -124,7 +124,28 @@ return {
 			--
 			-- But for many setups, the LSP (`tsserver`) will work just fine
 			-- tsserver = {},
-			--
+			jdtls = {
+				handlers = {
+					-- Customize how diagnostics are handled to suppress TODOs
+					["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+						if result.diagnostics == nil then
+							return
+						end
+
+						-- Filter out diagnostics containing TODO
+						local filtered_diagnostics = {}
+						for _, diagnostic in ipairs(result.diagnostics) do
+							if not diagnostic.message:match("TODO") then
+								table.insert(filtered_diagnostics, diagnostic)
+							end
+						end
+
+						result.diagnostics = filtered_diagnostics
+
+						vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+					end,
+				},
+			},
 
 			lua_ls = {
 				-- cmd = {...},
