@@ -146,9 +146,6 @@ return {
 					end,
 				},
 				root_dir = vim.fs.root(0, { ".git", "mvnw", "gradlew" }),
-				-- root_dir = function()
-				-- 	vim.fs.dirname(vim.fs.find({ "pom.xml", ".git" }, { upward = true })[1])
-				-- end,
 				settings = {
 					java = {
 						project = {
