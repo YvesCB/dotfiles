@@ -31,8 +31,8 @@ return {
 				-- Jump to the definition of the word under your cursor.
 				--  This is where a variable was first declared, or where a function is defined, etc.
 				--  To jump back, press <C-T>.
-				-- map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-				map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+				-- map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 
 				-- Find references for the word under your cursor.
 				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -144,6 +144,19 @@ return {
 
 						vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
 					end,
+				},
+				-- root_dir = function()
+				-- 	vim.fs.root(0, { ".git", "mvnw", "gradlew" })
+				-- end,
+				settings = {
+					java = {
+						project = {
+							-- this is needed for maven projects to be found
+							referencedLibraries = {
+								"~/.m2/repository/**/*.jar",
+							},
+						},
+					},
 				},
 			},
 
