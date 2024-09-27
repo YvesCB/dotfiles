@@ -145,6 +145,19 @@ return {
 						vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
 					end,
 				},
+				-- root_dir = function()
+				-- 	vim.fs.dirname(vim.fs.find({ "pom.xml", ".git" }, { upward = true })[1])
+				-- end,
+				settings = {
+					java = {
+						project = {
+							-- this is needed for maven projects to be found
+							referencedLibraries = {
+								"~/.m2/repository/**/*.jar",
+							},
+						},
+					},
+				},
 			},
 
 			lua_ls = {
