@@ -123,7 +123,18 @@ return {
 			--    https://github.com/pmizio/typescript-tools.nvim
 			--
 			-- But for many setups, the LSP (`tsserver`) will work just fine
-			-- tsserver = {},
+			tsserver = {
+				settings = {
+					typescript = {
+						inlayHints = {
+							includeInlayParameterNameHints = "all", -- or "literals" or "none"
+							includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayVariableTypeHints = true,
+						},
+					},
+				},
+			},
 			jdtls = {
 				handlers = {
 					-- Customize how diagnostics are handled to suppress TODOs
@@ -154,6 +165,7 @@ return {
 							-- this is needed for maven projects to be found
 							referencedLibraries = {
 								"~/.m2/repository/**/*.jar",
+								"~/.gradle/caches/modules-2/**/*",
 							},
 						},
 					},
