@@ -31,7 +31,8 @@ return {
 			return "%2l:%-2v"
 		end
 
-		require("mini.pairs").setup()
+		-- replacing this with autopairs becuase of html tags
+		-- require("mini.pairs").setup()
 
 		-- local MiniFiles = require("mini.files")
 		-- MiniFiles.setup()
