@@ -40,6 +40,21 @@ return {
 				},
 			}
 
+			dap.configurations.c = {
+				{
+					name = "lldb debug",
+					type = "codelldb",
+					request = "launch",
+					program = function()
+						vim.fn.jobstart("make")
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd(), "file")
+					end,
+					cwd = "${workspaceFolder}",
+					stopOnEntry = false,
+					showDisassembly = "never",
+				},
+			}
+
 			vim.fn.sign_define("DapBreakpoint", { text = "B", texthl = "PmenuSel", linehl = "", numhl = "" })
 			vim.fn.sign_define("DapBreakpointCondition", { text = "C", texthl = "PmenuSel", linehl = "", numhl = "" })
 			vim.fn.sign_define("DapLogPoint", { text = "L", texthl = "PmenuSel", linehl = "", numhl = "" })
