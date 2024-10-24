@@ -31,8 +31,8 @@ return {
 				-- Jump to the definition of the word under your cursor.
 				--  This is where a variable was first declared, or where a function is defined, etc.
 				--  To jump back, press <C-T>.
-				-- map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-				map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+				map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+				-- map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 
 				-- Find references for the word under your cursor.
 				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
@@ -113,7 +113,6 @@ return {
 		--  - settings (table): Override the default settings passed when initializing the server.
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 		local servers = {
-			-- clangd = {},
 			-- gopls = {},
 			-- pyright = {},
 			-- rust_analyzer = {},
@@ -123,8 +122,54 @@ return {
 			--    https://github.com/pmizio/typescript-tools.nvim
 			--
 			-- But for many setups, the LSP (`tsserver`) will work just fine
-			-- tsserver = {},
-			--
+			tsserver = {
+				settings = {
+					typescript = {
+						inlayHints = {
+							includeInlayParameterNameHints = "all", -- or "literals" or "none"
+							includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+							includeInlayFunctionLikeReturnTypeHints = true,
+							includeInlayVariableTypeHints = true,
+						},
+					},
+				},
+			},
+			jdtls = {
+				handlers = {
+					-- Customize how diagnostics are handled to suppress TODOs
+					["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+						if result.diagnostics == nil then
+							return
+						end
+
+						-- Filter out diagnostics containing TODO
+						local filtered_diagnostics = {}
+						for _, diagnostic in ipairs(result.diagnostics) do
+							if not diagnostic.message:match("TODO") then
+								table.insert(filtered_diagnostics, diagnostic)
+							end
+						end
+
+						result.diagnostics = filtered_diagnostics
+
+						vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+					end,
+				},
+				-- root_dir = function()
+				-- 	vim.fs.root(0, { ".git", "mvnw", "gradlew" })
+				-- end,
+				settings = {
+					java = {
+						project = {
+							-- this is needed for maven projects to be found
+							referencedLibraries = {
+								"~/.m2/repository/**/*.jar",
+								"~/.gradle/caches/modules-2/**/*",
+							},
+						},
+					},
+				},
+			},
 
 			lua_ls = {
 				-- cmd = {...},

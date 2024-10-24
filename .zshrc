@@ -21,7 +21,7 @@ export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
 # ===PATH AND ENVIRONMENT===
-export PATH=$HOME/bin:/usr/local/bin:/snap/bin:$HOME/.cargo/bin:$HOME/.local/bin/:$HOME/.config/qtile/:/usr/bin/gradle/gradle-8.6/bin/:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$HOME/.local/bin/:$HOME/.config/qtile/:$PATH
 
 # LOADING NVM
 export NVM_DIR="$HOME/.nvm"
@@ -51,7 +51,7 @@ function yy() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
+		builtin cd -- "$cwd"
 	fi
 	rm -f -- "$tmp"
 }
