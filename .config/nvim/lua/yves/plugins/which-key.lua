@@ -25,6 +25,8 @@ return {
 		{ "<leader>t_", hidden = true },
 		{ "<leader>w", group = "[W]orkspace" },
 		{ "<leader>w_", hidden = true },
+		{ "<leader>d", group = "[D]AP" },
+		{ "<leader>d_", hidden = true },
 	},
 	-- config = function() -- This is the function that runs, AFTER loading
 	-- 	require("which-key").setup()

@@ -8,7 +8,6 @@ if [[ -z "$THUMBNAIL_DIR" || ! -d "$THUMBNAIL_DIR" ]]; then
 fi
 
 # Configuration variables
-# wofi_THEME="-theme-str 'window { width: 20%; }'"
 HYPRPAPER_CONFIG_FILE="$HOME/.config/hypr/hyprpaper.conf"
 HYPRLOCK_CONFIG_FILE="$HOME/.config/hypr/hyprlock.conf"
 

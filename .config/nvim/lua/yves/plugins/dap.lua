@@ -62,7 +62,7 @@ return {
 			vim.fn.sign_define("DapBreakpointRejected", { text = "R", texthl = "PmenuSel", linehl = "", numhl = "" })
 
 			vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "DAP: Toggle a [B]reakpoint" })
-			vim.keymap.set("n", "<leader>cb", dap.clear_breakpoints, { desc = "DAP: [C]lear all [B]reakpoint" })
+			vim.keymap.set("n", "<leader>dc", dap.clear_breakpoints, { desc = "DAP: [C]lear all [B]reakpoint" })
 			vim.keymap.set("n", "<leader>B", function()
 				dap.set_breakpoint(vim.fn.input("Condition: "))
 			end, { desc = "DAP: Set a conditional [B]reakpoint" })
