@@ -112,17 +112,17 @@ button:hover {
 }
 
 #tray {
-  color: @yellow;
-  border-bottom: 2px solid @yellow;
+  color: @mauve;
+  border-bottom: 2px solid @mauve;
 }
 
 #custom-fcitx {
-  color: @lavendar;
-  border-bottom: 2px solid @lavendar;
+  color: @lavender;
+  border-bottom: 2px solid @lavender;
 }
 
 #custom-powermenu {
-  color: @lavendar;
+  color: white;
   margin-right: 8px;
 }
 
