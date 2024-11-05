@@ -34,6 +34,7 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-cmdline",
+		"hrsh7th/cmp-buffer",
 
 		-- setting icons on completion text
 		"onsails/lspkind.nvim",
@@ -124,14 +125,12 @@ return {
 			},
 		})
 
-		cmp.setup.filetype("markdown", {
-			sources = cmp.config.sources({
+		cmp.setup.filetype({ "markdown", "txt" }, {
+			sources = {
 				{ name = "buffer" },
-			}, {
-				{ name = "spell" },
-			}, {
+				{ name = "luasnip" },
 				{ name = "path" },
-			}),
+			},
 		})
 
 		-- `/` cmdline setup.
