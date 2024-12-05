@@ -27,7 +27,7 @@
         "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
       }
     },
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>"
+    "tooltip-format": "<big>{calendar}</big>"
   },
   "tray": {
     "icon-size": 16,
