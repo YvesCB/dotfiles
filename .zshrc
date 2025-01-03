@@ -46,6 +46,9 @@ alias yays="yay -Ss"
 alias fp="fzf --preview='bat --color=always --style=numbers {}'"
 alias tldr="tldr -t ocean"
 
+# kitty ssh fix
+[[ "$TERM" == "xterm-kitty" ]] && alias ssh="TERM=xterm-256color ssh" 
+
 # Wrapper for yazi that will change cwd when exiting yazi
 function yy() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
