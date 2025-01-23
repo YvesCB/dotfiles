@@ -28,7 +28,9 @@ return {
 				-- Maximum number of items to display
 				max_items = 200,
 
-				selection = "preselect",
+				selection = {
+					preselect = true,
+				},
 			},
 		},
 	},
