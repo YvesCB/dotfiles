@@ -21,7 +21,7 @@ export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
 # ===PATH AND ENVIRONMENT===
-export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$HOME/.local/bin/:$HOME/.config/qtile/:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.cargo/bin:$HOME/.local/bin/:$HOME/.local/hyde/:$HOME/.config/qtile/:$PATH
 
 # LOADING NVM
 export NVM_DIR="$HOME/.nvm"

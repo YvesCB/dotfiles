@@ -2,3 +2,4 @@
 .config/nvim/lazy-lock.json
 .config/qtile/__pycache__
 .config/hypr/hypr-display.conf
+.config/rofi/rofi
