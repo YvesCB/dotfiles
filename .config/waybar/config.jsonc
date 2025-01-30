@@ -1,70 +1,70 @@
 {
-  "position": "top",
-  "modules-left": ["hyprland/workspaces"],
-  "modules-center": ["hyprland/window"],
-  "modules-right": ["network", "pulseaudio", "battery", "custom/fcitx", "tray", "clock", "custom/powermenu"],
-  "custom/fcitx": {
-    "exec": "~/.config/waybar/fcitx5.sh",
-    "interval": 1,
-    "format": "{}"
-  },
-  "custom/powermenu": {
-    "tooltip": false,
-    "on-click": "~/.config/waybar/powermenu.sh",
-    "format": "<span>⏻</span>"
-  },
-  "clock": {
-    "format": "<span>   </span>{:%a %d %H:%M}",
-    "calendar": {
-      "mode"          : "month",
-      "mode-mon-col"  : 3,
-      "weeks-pos"     : "right",
-      "format": {
-        "months":     "<span color='#ffead3'><b>{}</b></span>",
-        "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-        "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-        "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-      }
+    "layer": "top",
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["network", "pulseaudio", "battery", "custom/fcitx", "tray", "clock", "custom/powermenu"],
+    "custom/fcitx": {
+        "exec": "~/.config/waybar/fcitx5.sh",
+        "interval": 1,
+        "format": "{}"
     },
-    "tooltip-format": "<big>{calendar}</big>"
-  },
-  "tray": {
-    "icon-size": 16,
-    "spacing": 2,
-    "icon-padding": 4
-  },
-  "battery": {
-    "states": {
-      "warning": 30,
-      "critical": 15
+    "custom/powermenu": {
+        "tooltip": false,
+        "on-click": "~/.config/waybar/powermenu.sh",
+        "format": "<span>⏻</span>"
     },
-    "interval": 5,
-    "format": "<span size='13000'>{icon} </span> {capacity}%",
-    "format-warning": "<span size='13000'>{icon} </span> {capacity}%",
-    "format-critical": "<span size='13000'>{icon} </span> {capacity}%",
-    "format-charging": "<span size='13000'> </span>{capacity}%",
-    "format-plugged": "<span size='13000'> </span>{capacity}%",
-    "format-alt": "<span size='13000'>{icon} </span> {time}",
-    "format-full": "<span size='13000'> </span>{capacity}%",
-    "format-icons": ["", "", "", "", ""],
-    "tooltip-format": "{time}"
-  },
-  "network": {
-    "format-wifi": "<span size='13000'>  </span>{essid}",
-    "format-ethernet": "<span size='13000'>󰤭  </span> Disconnected",
-    "format-linked": "{ifname} (No IP) ",
-    "format-disconnected": "<span size='13000'>  </span>Disconnected",
-    "tooltip-format-wifi": "Signal Strenght: {signalStrength}%",
-    "on-click": "hyprctl dispatch exec [floating] nm-connection-editor"
-  },
-  "pulseaudio": {
-    "format": "{icon}  {volume}%",
-    "format-muted": "",
-    "format-icons": {
-      "default": ["", "", " "]
+    "clock": {
+        "format": "<span>   </span>{:%a %d %H:%M}",
+        "calendar": {
+            "mode"          : "month",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "format": {
+                "months":     "<span color='#ffead3'><b>{}</b></span>",
+                "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
+        "tooltip-format": "<big>{calendar}</big>"
     },
-    "max-volume": 100,
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-  }
+    "tray": {
+        "icon-size": 16,
+        "spacing": 2,
+        "icon-padding": 4
+    },
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "interval": 5,
+        "format": "<span size='13000'>{icon} </span> {capacity}%",
+        "format-warning": "<span size='13000'>{icon} </span> {capacity}%",
+        "format-critical": "<span size='13000'>{icon} </span> {capacity}%",
+        "format-charging": "<span size='13000'> </span>{capacity}%",
+        "format-plugged": "<span size='13000'> </span>{capacity}%",
+        "format-alt": "<span size='13000'>{icon} </span> {time}",
+        "format-full": "<span size='13000'> </span>{capacity}%",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip-format": "{time}"
+    },
+    "network": {
+        "format-wifi": "<span size='13000'>  </span>{essid}",
+        "format-ethernet": "<span size='13000'>󰤭  </span> Disconnected",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "<span size='13000'>  </span>Disconnected",
+        "tooltip-format-wifi": "Signal Strenght: {signalStrength}%",
+        "on-click": "hyprctl dispatch exec [floating] nm-connection-editor"
+    },
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "default": ["", "", " "]
+        },
+        "max-volume": 100,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    }
 }
