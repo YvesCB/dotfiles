@@ -22,6 +22,10 @@ return {
 		{ "j-hui/fidget.nvim", opts = {} },
 	},
 	config = function()
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			-- Use a sharp border with `FloatBorder` highlights
+			border = "single",
+		})
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
