@@ -2,8 +2,8 @@
 
 -- Automatically set the line wrap and spell but only in pure text files
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-	pattern = { "*.txt", "*.md", "*.tex" },
-	desc = "Set wordwrap and spell when in 'txt', 'md' or 'tex' files.",
+	pattern = { "*.txt", "*.md", "*.tex", "*.typ" },
+	desc = "Set wordwrap and spell when in 'txt', 'md', 'tex' or 'typst' files.",
 	group = vim.api.nvim_create_augroup("linewrap-in-text-files", { clear = true }),
 	callback = function()
 		vim.opt_local.wrap = true
