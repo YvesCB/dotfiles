@@ -46,6 +46,10 @@ alias yays="yay -Ss"
 alias fp="fzf --preview='bat --color=always --style=numbers {}'"
 alias tldr="tldr -t ocean"
 
+alias ls="eza --color=auto --icons=auto"
+alias ll="eza --color=auto --icons=auto --long"
+alias lt="eza --color=auto --icons=auto --tree --level=3"
+
 # kitty ssh fix
 [[ "$TERM" == "xterm-kitty" ]] && alias ssh="TERM=xterm-256color ssh" 
 
