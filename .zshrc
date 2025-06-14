@@ -32,9 +32,10 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 # ibus stuff
-export GTK_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-export QT_IM_MODULE=ibus
+export GTK_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export QT_IM_MODULE=fcitx
+export INPUT_METHOD=fcitx
 
 # ===ALIASES AND CUSTOM FUNCTIONS===
 alias v=nvim
