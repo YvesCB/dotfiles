@@ -14,7 +14,7 @@ local termcommand = ":term pwsh <cr>i"
 local termsplit = ":botright :15 split <cr>"
 
 if os == "Linux" then
-	termcommand = ":term zsh <cr> i clear <cr>"
+  termcommand = ":term zsh <cr> i clear <cr>"
 end
 
 -- Opening and closing terminals
@@ -31,8 +31,6 @@ vim.keymap.set("n", "<c-d>", "<c-d>zz", { silent = true })
 vim.keymap.set("n", "<c-u>", "<c-u>zz", { silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
@@ -50,19 +48,19 @@ vim.keymap.set("n", "<leader>ft", ":Lexplore <cr>", { desc = "Open diagnostic [Q
 
 -- Toggles
 local toggle_spell = function()
-	if vim.o.spell then
-		vim.cmd("set nospell")
-	else
-		vim.cmd("setlocal spell")
-	end
+  if vim.o.spell then
+    vim.cmd("set nospell")
+  else
+    vim.cmd("setlocal spell")
+  end
 end
 
 local toggle_color_col = function()
-	if vim.o.cc == "" then
-		vim.o.cc = "80"
-	else
-		vim.o.cc = ""
-	end
+  if vim.o.cc == "" then
+    vim.o.cc = "80"
+  else
+    vim.o.cc = ""
+  end
 end
 
 vim.keymap.set("n", "<leader>ts", toggle_spell, { silent = true, desc = "[T]oggle [S]pellcheck" })
