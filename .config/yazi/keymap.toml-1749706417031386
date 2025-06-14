@@ -1,0 +1,10 @@
+[manager]
+prepend_keymap = [
+	# Going places
+	{ on = [ "g", "m" ], run = 'cd /mnt/', desc = "Go to mounts" },
+	{ on = [ "g", "." ], run = 'cd ~/dotfiles/', desc = "Go to dotfiles" },
+
+	# Seeking with shift, works better out of the box with tmux
+	{ on = [ "N" ], run = 'seek +5', desc = "Seek down by 5" },
+	{ on = [ "P" ], run = 'seek -5', desc = "Seek up by 5" },
+]
