@@ -76,9 +76,6 @@ vim.lsp.config('*', {
 -- NOTE: Attach and Keybinds
 
 -- Disable the default keybinds
-for _, bind in ipairs({ 'grn', 'gra', 'gri', 'grr' }) do
-  pcall(vim.keymap.del, 'n', bind)
-end
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(event)
@@ -105,18 +102,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     map('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
     map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-    map('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-    map('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
-    map('<C-k>', vim.lsp.buf.signature_help, 'Open signature help')
     -- disable the default binding first before using a custom one
     pcall(vim.keymap.del, 'n', 'K', { buffer = event.buf })
     map('K', function() vim.lsp.buf.hover({ border = 'single', max_height = 30, max_width = 120 }) end,
       'Toggle hover doc')
-
-    map('<leader>rn', vim.lsp.buf.rename, 'LSP Rename')
-    map('<leader>ca', vim.lsp.buf.code_action, 'LSP Rename')
-    map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-    map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
     if vim.lsp.inlay_hint then
       map('<leader>th', function()

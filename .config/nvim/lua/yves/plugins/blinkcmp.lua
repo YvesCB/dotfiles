@@ -30,6 +30,7 @@ return {
 
       ['<C-l>'] = { 'snippet_forward', 'fallback' },
       ['<C-h>'] = { 'snippet_backward', 'fallback' },
+      ['<C-k>'] = {},
     },
 
     appearance = {
