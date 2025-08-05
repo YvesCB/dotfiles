@@ -117,93 +117,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- NOTE: Servers
 
--- Lua
-vim.lsp.config.lua_ls = {
-  cmd = { 'lua-language-server' },
-  filetypes = { 'lua' },
-  root_markers = { '.luarc.json', '.git', vim.uv.cwd() },
-  settings = {
-    Lua = {
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-}
 vim.lsp.enable('lua_ls')
 
--- Rust
-vim.lsp.config.rust_analyzer = {
-  filetypes = { 'rust' },
-  cmd = { 'rust-analyzer' },
-  workspace_required = true,
-  root_dir = function(buf, cb)
-    local root = vim.fs.root(buf, { 'Cargo.toml', 'rust-project.json' })
-    local out = vim.system({ 'cargo', 'metadata', '--no-deps', '--format-version', '1' }, { cwd = root }):wait()
-    if out.code ~= 0 then
-      return cb(root)
-    end
-
-    local ok, result = pcall(vim.json.decode, out.stdout)
-    if ok and result.workspace_root then
-      return cb(result.workspace_root)
-    end
-
-    return cb(root)
-  end,
-  settings = {
-    autoformat = false,
-    ['rust-analyzer'] = {
-      check = {
-        command = 'clippy',
-      },
-    },
-  },
-}
 vim.lsp.enable('rust_analyzer')
 
--- Typst
-vim.lsp.config.tinymist = {
-  cmd = { "tinymist" },
-  filetypes = { "typst" },
-  root_markers = { ".git", vim.uv.cwd() },
-  settings = {
-    formatterMode = "typstyle",
-  },
-}
-vim.lsp.enable("tinymist")
+vim.lsp.enable('tinymist')
 
--- C/CPP
-vim.lsp.config.clangd = {
-  cmd = {
-    "clangd",
-    "-j=" .. 2,
-    "--background-index",
-    "--clang-tidy",
-    "--inlay-hints",
-    "--fallback-style=llvm",
-    "--all-scopes-completion",
-    "--completion-style=detailed",
-    "--header-insertion=iwyu",
-    "--header-insertion-decorators",
-    "--pch-storage=memory",
-  },
-  filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
-  root_markers = {
-    "CMakeLists.txt",
-    ".clangd",
-    ".clang-tidy",
-    ".clang-format",
-    "compile_commands.json",
-    "compile_flags.txt",
-    "configure.ac",
-    ".git",
-    vim.uv.cwd(),
-  },
-}
-vim.lsp.enable("clangd")
+vim.lsp.enable('clangd')
+
+vim.lsp.enable('ts_ls')
+
+vim.lsp.enable('svelte')
+
+vim.lsp.enable('tailwindcss')
+
 
 -- NOTE: Start, Stop, Restart, Log commands
+
 vim.api.nvim_create_user_command("LspStart", function()
   vim.cmd.e()
 end, { desc = "Starts LSP clients in the current buffer" })
