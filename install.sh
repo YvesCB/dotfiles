@@ -8,22 +8,22 @@ die() { log "ERROR: $*"; exit 1; }
 
 # --- packages we need ---
 PKGS=(
-	tmux
-	zsh
-	neovim
-	fzf
-	yazi
-	kitty
-	lazygit
-	mpv
-	zathura
-	git
-	ffmpeg
-	jq
-	zoxide
-	starship
-	eza
-	nerdfetch
+  tmux
+  zsh
+  neovim
+  fzf
+  yazi
+  kitty
+  lazygit
+  mpv
+  zathura
+  git
+  ffmpeg
+  jq
+  zoxide
+  starship
+  eza
+  nerdfetch
   stow
 )
 
