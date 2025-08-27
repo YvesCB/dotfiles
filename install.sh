@@ -77,15 +77,51 @@ if [[ ${#AUR_PKGS[@]} -gt 0 ]]; then
   yay -S --needed --noconfirm "${AUR_PKGS[@]}" | tee -a "$LOGFILE"
 fi
 
-log "Installing oh-my-zsh"
+# ---- install oh-my-zsh and plugins (as the real user, unattended) ----
+log "Installing oh-my-zsh and plugins"
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Determine the target user/home (handles running the script via sudo)
+TARGET_USER="${SUDO_USER:-$USER}"
+TARGET_HOME="$(getent passwd "$TARGET_USER" | cut -d: -f6)"
 
-log "Installing zsh plugins."
+# Environment for unattended install
+OMZ_ENV="RUNZSH=no CHSH=no KEEP_ZSHRC=yes"
+OMZ_DIR="$TARGET_HOME/.oh-my-zsh"
+ZSH_CUSTOM_DIR="${ZSH_CUSTOM:-$OMZ_DIR/custom}"
 
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# Install oh-my-zsh if missing
+if [[ ! -d "$OMZ_DIR" ]]; then
+  log "oh-my-zsh not found; installing to $OMZ_DIR"
+  sudo -u "$TARGET_USER" env HOME="$TARGET_HOME" ZDOTDIR="$TARGET_HOME" $OMZ_ENV \
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  log "oh-my-zsh already present at $OMZ_DIR"
+fi
 
-log "All done."
+# Ensure custom dir exists
+sudo -u "$TARGET_USER" mkdir -p "$ZSH_CUSTOM_DIR/plugins"
 
+# Install plugins (idempotent clones)
+install_plugin () {
+  local repo="$1" dest="$2"
+  if sudo -u "$TARGET_USER" test -d "$dest/.git"; then
+    log "Updating $(basename "$dest")"
+    sudo -u "$TARGET_USER" git -C "$dest" pull --ff-only || true
+  elif [[ ! -d "$dest" ]]; then
+    log "Cloning $(basename "$dest")"
+    sudo -u "$TARGET_USER" git clone --depth=1 "$repo" "$dest"
+  else
+    log "Skipping $(basename "$dest") (exists but not a git repo)"
+  fi
+}
+
+install_plugin https://github.com/zsh-users/zsh-autosuggestions \
+  "$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions"
+
+install_plugin https://github.com/joshskidmore/zsh-fzf-history-search \
+  "$ZSH_CUSTOM_DIR/plugins/zsh-fzf-history-search"
+
+install_plugin https://github.com/zsh-users/zsh-syntax-highlighting.git \
+  "$ZSH_CUSTOM_DIR/plugins/zsh-syntax-highlighting"
+
+log "oh-my-zsh setup complete (remember to enable plugins in ~/.zshrc)"
