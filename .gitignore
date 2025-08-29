@@ -5,3 +5,4 @@
 .config/rofi/rofi
 tmux-client-16717.log
 install.log
+nvim/.config/nvim/lazy-lock.json

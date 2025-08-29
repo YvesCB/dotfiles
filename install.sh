@@ -24,6 +24,7 @@ PKGS=(
   starship
   eza
   stow
+  go
 )
 
 AUR_PKGS=(
