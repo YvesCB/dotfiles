@@ -1,9 +1,9 @@
 return {
-	"catppuccin/nvim",
-	name = "catppuccin",
+	"rebelot/kanagawa.nvim",
+	name = "kanagawa",
 	priority = 1000,
 	config = function()
-		vim.cmd.colorscheme("catppuccin")
+		vim.cmd.colorscheme("kanagawa")
 		-- vim.cmd.colorscheme("default")
 	end,
 }
