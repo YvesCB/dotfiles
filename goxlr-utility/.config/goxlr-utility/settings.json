@@ -14,6 +14,7 @@
   "log_level": "Debug",
   "open_ui_on_launch": false,
   "activate": null,
+  "firmware_source": "Live",
   "devices": {
     "S190900995DI7": {
       "profile": "Stream",
