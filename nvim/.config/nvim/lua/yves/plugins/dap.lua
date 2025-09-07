@@ -64,11 +64,11 @@ return {
         },
       }
 
-      vim.fn.sign_define("DapBreakpoint", { text = "B", texthl = "IncSearch", linehl = "", numhl = "" })
-      vim.fn.sign_define("DapBreakpointCondition", { text = "C", texthl = "IncSearch", linehl = "", numhl = "" })
-      vim.fn.sign_define("DapLogPoint", { text = "L", texthl = "IncSearch", linehl = "", numhl = "" })
-      vim.fn.sign_define("DapStopped", { text = "→", texthl = "IncSearch", linehl = "", numhl = "" })
-      vim.fn.sign_define("DapBreakpointRejected", { text = "R", texthl = "IncSearch", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapBreakpoint", { text = "󰯯", texthl = "ModeMsg", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapBreakpointCondition", { text = "󰯰", texthl = "ModeMsg", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapLogPoint", { text = "󰰍", texthl = "ModeMsg", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapStopped", { text = "", texthl = "ModeMsg", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapBreakpointRejected", { text = "󰰟", texthl = "ModeMsg", linehl = "", numhl = "" })
 
       vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "[D]AP: Toggle a [B]reakpoint" })
       vim.keymap.set("n", "<leader>dc", dap.clear_breakpoints, { desc = "[D]AP: [C]lear all Breakpoint" })

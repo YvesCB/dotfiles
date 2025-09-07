@@ -12,6 +12,10 @@ local config = {
   update_in_insert = true,
   underline = true,
   severity_sort = true,
+  virtual_lines = {
+    current_line = true,
+    severity = vim.diagnostic.severity.WARN,
+  },
   float = {
     focusable = true,
     style = 'minimal',
