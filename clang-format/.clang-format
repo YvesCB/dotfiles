@@ -3,6 +3,7 @@ IndentCaseLabels: true
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
+PointerAlignment: Left
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: Consecutive
 AlignConsecutiveBitFields: Consecutive
