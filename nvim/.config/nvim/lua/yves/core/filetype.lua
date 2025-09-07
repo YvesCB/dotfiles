@@ -24,7 +24,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 
 -- I like tapstop = 4 in C and Rust (and some extra)
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  pattern = { "*.c", ".rs", ".toml", ".json" },
+  pattern = { "*.c", "*.cpp", "*.h", "*.hpp", ".rs", ".toml", ".json" },
   desc = "Set the tabstop and shiftwidth to 4.",
   group = vim.api.nvim_create_augroup("tabstop-and-shiftwidth-four", { clear = true }),
   callback = function()
