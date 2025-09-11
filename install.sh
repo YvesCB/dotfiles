@@ -13,6 +13,7 @@ PKGS=(
   zsh
   neovim
   fzf
+  ripgrep
   yazi
   kitty
   lazygit
