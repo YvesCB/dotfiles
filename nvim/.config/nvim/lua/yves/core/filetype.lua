@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "Set wordwrap and spell when in 'txt', 'md', 'tex' or 'typst' files.",
   group = vim.api.nvim_create_augroup("linewrap-in-text-files", { clear = true }),
   callback = function()
-    vim.bo.wrap = true
+    vim.opt_local.wrap = true
     vim.cmd("setlocal spell")
   end,
 })
