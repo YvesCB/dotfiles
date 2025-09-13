@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "c", "cpp", "h", "hpp", "rust", "toml", "make", "json" },
+  pattern = { "c", "cpp", "h", "hpp", "rust", "toml", "make", "json", "hyprlang", "config"},
   desc = "Use 4-space indentation for C, C++, Rust, TOML, MAKE, JSON",
   group = vim.api.nvim_create_augroup("indent-4-space", { clear = true }),
   callback = function()
