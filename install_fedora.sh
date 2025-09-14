@@ -18,30 +18,30 @@ PKGS=(
   ripgrep
   jq
   stow
-  starship
-  eza
+  # starship
+  # eza
   zoxide
   golang         # 'go' on Arch => 'golang' on Fedora
 
   # terminal & apps
   kitty
-  lazygit
+  # lazygit
   mpv
-  zathura
-  zathura-pdf-mupdf
+  # zathura
+  # zathura-pdf-mupdf
 
   # from RPM Fusion (enabled below)
-  ffmpeg
+  # ffmpeg
 )
 
 # A few things live better via COPR or may be missing in base repos
-COPR_ENABLE=("atim/yazi")   # yazi lives here on Fedora
-COPR_PKGS=("yazi")
+COPR_ENABLE=()   # yazi lives here on Fedora
+COPR_PKGS=()
 
 # Optional / “best-effort” packages — try to install, skip on failure
-OPTIONAL_PKGS=(
-  nerdfetch       # may exist in your repos; if not, we’ll skip
-)
+ OPTIONAL_PKGS=(
+#   nerdfetch       # may exist in your repos; if not, we’ll skip
+ )
 
 # ---- sanity checks ----
 # rudimentary RPM/DNF lock check
