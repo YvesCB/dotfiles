@@ -12,6 +12,7 @@ return {
   -- Give Neovim an explicit command to run:
   cmd = { cmd, "--stdio" },
 
+  filetypes = { 'python' },
   settings = {
     python = {
       analysis = {
