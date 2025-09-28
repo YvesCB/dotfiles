@@ -135,6 +135,8 @@ vim.lsp.enable('svelte')
 
 vim.lsp.enable('tailwindcss')
 
+vim.lsp.enable('pyright')
+
 
 -- NOTE: Start, Stop, Restart, Log commands
 
