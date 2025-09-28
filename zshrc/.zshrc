@@ -82,3 +82,5 @@ esac
 eval "$(starship init zsh)"
 
 nerdfetch
+
+. "$HOME/.local/bin/env"
