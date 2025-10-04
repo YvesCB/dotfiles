@@ -1,0 +1,196 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# yubi-crypt.sh — Encrypt/decrypt files or folders with GPG (YubiKey-backed keys)
+#
+# Requirements: bash, gpg, tar, gzip
+#
+# Usage:
+#   Encrypt a single file:
+#     ./yubi-crypt.sh enc -r <recipient> path/to/file
+#   Encrypt a folder (auto-archives to .tar.gz first):
+#     ./yubi-crypt.sh enc -r <recipient> path/to/folder
+#   Decrypt a .gpg file:
+#     ./yubi-crypt.sh dec path/to/file.gpg
+#
+# Options:
+#   -r <recipient>   GPG recipient (email, fingerprint, or key ID). Required for enc.
+#   --keep-archive   When encrypting a folder, keep the intermediate .tar.gz file.
+#   --extract        When decrypting and the output looks like an archive (.tar.gz), extract it.
+#   --out <path>     Override output path (encrypt/decrypt).
+#   --debug          Print extra diagnostics.
+#
+# Environment:
+#   YUBI_GPG_RECIPIENT  Default recipient if -r is omitted (enc only).
+#   GPG_OPTS            Extra options to pass to gpg (both enc/dec). Example: "--verbose".
+#
+# Notes:
+# - Your private subkeys should already live on the YubiKey (gpg --card-status shows them).
+# - On decrypt/sign, gpg will prompt for the User PIN and require the YubiKey present.
+
+usage() {
+  sed -n '1,80p' "$0" | sed 's/^# //;t;d'
+}
+
+die() { echo "[!] $*" >&2; exit 1; }
+log() { echo "[*] $*" >&2; }
+
+have() { command -v "$1" >/dev/null 2>&1; }
+
+ensure_requirements() {
+  have gpg || die "gpg not found"
+  have tar || die "tar not found"
+  have gzip || die "gzip not found"
+}
+
+# Global flags
+RECIPIENT="${YUBI_GPG_RECIPIENT:-}"
+KEEP_ARCHIVE=0
+EXTRACT=0
+OUT_OVERRIDE=""
+DEBUG=0
+
+ACTION=""
+TARGET=""
+
+parse_args() {
+  (( $# >= 1 )) || { usage; exit 1; }
+  ACTION="$1"; shift || true
+
+  while (( $# )); do
+    case "$1" in
+      -h|--help) usage; exit 0;;
+      -r) shift; RECIPIENT=${1:-""} || true; [[ -n "${RECIPIENT}" ]] || die "-r requires a value";;
+      --keep-archive) KEEP_ARCHIVE=1;;
+      --extract) EXTRACT=1;;
+      --out) shift; OUT_OVERRIDE=${1:-""} || true; [[ -n "${OUT_OVERRIDE}" ]] || die "--out requires a value";;
+      --debug) DEBUG=1;;
+      --) shift; break;;
+      -*) die "Unknown option: $1";;
+      *) TARGET=${1:-""}; shift || true; break;;
+    esac
+    shift || true
+  done
+
+  # If TARGET not yet set, take the next positional
+  if [[ -z "${TARGET}" && $# -gt 0 ]]; then
+    TARGET="$1"; shift || true
+  fi
+
+  [[ -n "${ACTION}" ]] || die "Missing action (enc|dec)"
+  [[ -n "${TARGET}" ]] || die "Missing target path"
+
+  if (( DEBUG )); then
+    log "Args parsed: ACTION=$ACTION RECIPIENT='${RECIPIENT:-}' OUT='${OUT_OVERRIDE:-}' KEEP_ARCHIVE=$KEEP_ARCHIVE EXTRACT=$EXTRACT TARGET='${TARGET}'"
+  fi
+}
+
+safe_basename() { basename -- "$1"; }
+abs_path() { readlink -f -- "$1" 2>/dev/null || python3 -c 'import os,sys; print(os.path.abspath(sys.argv[1]))' "$1"; }
+
+enc_file() {
+  local src="$1"
+  local base out
+  base=$(safe_basename "$src")
+  out="${OUT_OVERRIDE:-"$src.gpg"}"
+  log "Encrypting file -> $out"
+  gpg ${GPG_OPTS:-} --yes --armor --encrypt --recipient "$RECIPIENT" --output "$out" -- "$src"
+  log "Done: $out"
+}
+
+enc_dir() {
+  local dir="$1"
+  [[ -d "$dir" ]] || die "Not a directory: $dir"
+  local parent name tarball out
+  parent=$(dirname -- "$dir")
+  name=$(safe_basename "$dir")
+  tarball="$parent/$name.tar.gz"
+  out="${OUT_OVERRIDE:-"$tarball.gpg"}"
+
+  log "Archiving $dir -> $tarball"
+  (cd "$parent" && tar -czf "$tarball" -- "$name")
+
+  log "Encrypting archive -> $out"
+  gpg ${GPG_OPTS:-} --yes --armor --encrypt --recipient "$RECIPIENT" --output "$out" -- "$tarball"
+
+  if (( ! KEEP_ARCHIVE )); then
+    log "Removing intermediate archive $tarball"
+    rm -f -- "$tarball"
+  else
+    log "Keeping archive $tarball (per --keep-archive)"
+  fi
+  log "Done: $out"
+}
+
+enc() {
+  [[ -n "${RECIPIENT}" ]] || die "Recipient missing. Use -r <recipient> or set YUBI_GPG_RECIPIENT."
+  local target_abs
+  target_abs=$(abs_path "$TARGET")
+  if (( DEBUG )); then
+    log "Resolved target: '$TARGET' (abs: '$target_abs')"
+    log "CWD: '$(pwd)'"
+    ls -la -- "$(dirname -- "$target_abs")" >/dev/stderr || true
+  fi
+  [[ -e "$TARGET" ]] || [[ -e "$target_abs" ]] || die "Target not found: '$TARGET' (abs: '$target_abs')"
+  if [[ -d "$TARGET" || -d "$target_abs" ]]; then
+    enc_dir "${TARGET:-$target_abs}"
+  else
+    enc_file "${TARGET:-$target_abs}"
+  fi
+}
+
+maybe_extract() {
+  local path="$1"
+  if (( EXTRACT )) && [[ "$path" =~ \.tar\.gz$ ]]; then
+    local parent name outdir
+    parent=$(dirname -- "$path")
+    name=$(safe_basename "$path")
+    outdir="${name%.tar.gz}"
+
+    # Detect if the archive has a single top-level directory (common when we tar a folder)
+    local top_count top_name
+    top_count=$(tar -tzf "$path" | awk -F/ 'NF{print $1}' | uniq | wc -l | tr -d ' ')
+    top_name=$(tar -tzf "$path" | awk -F/ 'NF{print $1; exit}')
+
+    mkdir -p -- "$parent/$outdir"
+    if [[ "$top_count" -eq 1 && -n "$top_name" ]]; then
+      log "Archive has single top-level dir '$top_name' -> extracting into $parent/$outdir/ without nesting"
+      tar -xzf "$path" -C "$parent/$outdir" --strip-components=1
+    else
+      log "Archive has multiple top-level entries -> extracting as-is into $parent/$outdir/"
+      tar -xzf "$path" -C "$parent/$outdir"
+    fi
+    log "Extraction complete: $parent/$outdir/"
+  fi
+}
+
+dec() {
+  local encpath="$TARGET"
+  [[ -f "$encpath" ]] || die "Encrypted file not found: $encpath"
+
+  local out
+  if [[ -n "$OUT_OVERRIDE" ]]; then
+    out="$OUT_OVERRIDE"
+  else
+    out="${encpath%.gpg}"
+    [[ "$out" == "$encpath" ]] && out="$encpath.dec"
+  fi
+
+  log "Decrypting $encpath -> $out"
+  gpg ${GPG_OPTS:-} --yes --decrypt --output "$out" -- "$encpath"
+  log "Done: $out"
+  maybe_extract "$out"
+}
+
+main() {
+  ensure_requirements
+  parse_args "$@"
+
+  case "$ACTION" in
+    enc) enc;;
+    dec) dec;;
+    *) die "Unknown action: $ACTION (expected enc or dec)";;
+  esac
+}
+
+main "$@"
