@@ -14,18 +14,19 @@ PKGS=(
   neovim
   fzf
   ripgrep
-  yazi
+  yazi        # TUI file browser with image support
   kitty
-  lazygit
+  lazygit     # TUI for git
   mpv
   zathura
   ffmpeg
-  jq
-  zoxide
-  starship
-  eza
+  jq          # CLI utilty for working with json
+  zoxide      # Modern replacement for cd
+  starship    # CLI prompt
+  eza         # Modern replacement for ls
   stow
   go
+  uv          # Fast python package manager
 )
 
 AUR_PKGS=(
