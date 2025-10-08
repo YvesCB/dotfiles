@@ -9,24 +9,27 @@ die() { log "ERROR: $*"; exit 1; }
 # --- packages we need ---
 PKGS=(
   base-devel
-  tmux
-  zsh
-  neovim
+  bat         # Modern replacement for cat
+  caligula    # CLI utilty for burning ISOs to drives
+  eza         # Modern replacement for ls
+  ffmpeg
   fzf
-  ripgrep
-  yazi        # TUI file browser with image support
+  go
+  jq          # CLI utilty for working with json
   kitty
   lazygit     # TUI for git
   mpv
-  zathura
-  ffmpeg
-  jq          # CLI utilty for working with json
-  zoxide      # Modern replacement for cd
+  neovim
+  ripgrep
   starship    # CLI prompt
-  eza         # Modern replacement for ls
   stow
-  go
+  tmux
+  typst
   uv          # Fast python package manager
+  yazi        # TUI file browser with image support
+  zathura
+  zoxide      # Modern replacement for cd
+  zsh
 )
 
 AUR_PKGS=(
