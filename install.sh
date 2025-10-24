@@ -34,6 +34,7 @@ PKGS=(
 
 AUR_PKGS=(
   nerdfetch
+  lazyssh-bin
 )
 
 # ---- sanity checks ----
