@@ -20,7 +20,6 @@ PKGS=(
   lazygit     # TUI for git
   mpv
   neovim
-  openresolv  # Dependancy for wg-quick
   ripgrep
   starship    # CLI prompt
   stow
