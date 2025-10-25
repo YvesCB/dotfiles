@@ -20,12 +20,14 @@ PKGS=(
   lazygit     # TUI for git
   mpv
   neovim
+  openresolv  # Dependancy for wg-quick
   ripgrep
   starship    # CLI prompt
   stow
   tmux
   typst
   uv          # Fast python package manager
+  wireguard-tools
   yazi        # TUI file browser with image support
   zathura
   zoxide      # Modern replacement for cd
