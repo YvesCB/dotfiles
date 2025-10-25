@@ -1,0 +1,7 @@
+[package]
+name = "grid-box"
+version = "1.0.0"
+entrypoint = "lib.typ"
+authors = ["Yves Bruckmayer"]
+license = "MIT"
+description = "Creating a grid with same sized boxes, that automatically scale."

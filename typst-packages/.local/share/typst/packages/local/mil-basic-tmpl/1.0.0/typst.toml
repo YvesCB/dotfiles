@@ -1,0 +1,7 @@
+[package]
+name = "mil-basic-tmpl"
+version = "1.0.0"
+entrypoint = "lib.typ"
+authors = ["Yves Bruckmayer"]
+license = "MIT"
+description = "Template für einfache Mil Doks"
