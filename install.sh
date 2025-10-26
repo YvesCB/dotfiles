@@ -12,6 +12,13 @@ PKGS=(
   bat         # Modern replacement for cat
   caligula    # CLI utilty for burning ISOs to drives
   eza         # Modern replacement for ls
+
+  # Optional for IME
+  # fcitx5
+  # fcitx5-configtool
+  # fcitx5-mozc
+  # fcitx5-qt
+
   ffmpeg
   fzf
   go
